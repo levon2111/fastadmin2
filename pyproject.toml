@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "fastadmin"
+name = "fastadmin2"
 version = "0.2.0"
 description = ""
-authors = ["Seva D <vsdudakov@gmail.com>"]
+authors = ["Levon <levon2111@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/vsdudakov/fastadmin"
-repository = "https://github.com/vsdudakov/fastadmin"
+homepage = "https://github.com/levon2111/fastadmin2"
+repository = "https://github.com/levon2111/fastadmin2"
 keywords = ["fastapi", "admin"]
 classifiers = [
     "Environment :: Console",
