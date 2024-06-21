@@ -3,10 +3,17 @@ import dayjs from "dayjs";
 import slugify from "slugify";
 
 export const isDayJs = (v: any): boolean => {
+  console.log("==================")
+  console.log(v)
+  console.log(typeof v)
+
   const parsedDate = dayjs(v);
+  console.log(parsedDate)
+  console.log("==================")
+
   return (
     parsedDate.isValid() &&
-    v.includes(parsedDate.toISOString().replace("Z", ""))
+    String(v).includes(parsedDate.toISOString().replace("Z", ""))
   );
 };
 
