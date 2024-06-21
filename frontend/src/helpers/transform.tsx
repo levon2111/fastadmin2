@@ -3,17 +3,10 @@ import dayjs from "dayjs";
 import slugify from "slugify";
 
 export const isDayJs = (v: any): boolean => {
-  console.log("==================")
-  console.log(v)
-  console.log(typeof v)
-
   const parsedDate = dayjs(v);
-  console.log(parsedDate)
-  console.log("==================")
-
   return (
-    parsedDate.isValid() &&
-    String(v).includes(parsedDate.toISOString().replace("Z", ""))
+      parsedDate.isValid() &&
+      String(v)?.includes(parsedDate.toISOString().replace("Z", ""))
   );
 };
 
@@ -71,7 +64,7 @@ export const transformValueToServer = (value: any): any => {
 
 export const transformDataToServer = (data: any) => {
   return Object.fromEntries(
-    Object.entries(data).map(([k, v]) => [k, transformValueToServer(v)]),
+      Object.entries(data).map(([k, v]) => [k, transformValueToServer(v)]),
   );
 };
 
@@ -118,14 +111,14 @@ export const transformValueFromServer = (value: any): any => {
 
 export const transformDataFromServer = (data: any) => {
   return Object.fromEntries(
-    Object.entries(data).map(([k, v]) => [k, transformValueFromServer(v)]),
+      Object.entries(data).map(([k, v]) => [k, transformValueFromServer(v)]),
   );
 };
 
 export const transformColumnValueFromServer = (
-  value: any,
-  emptyValue?: string,
-  dateTimeFormat?: string,
+    value: any,
+    emptyValue?: string,
+    dateTimeFormat?: string,
 ) => {
   if (value === null || value === undefined) {
     return emptyValue || "-";
@@ -149,9 +142,9 @@ export const transformColumnValueFromServer = (
 
     return value.map((v: any, index: number) => {
       return (
-        <Tag color={colors[index % colors.length]} key={v}>
-          {v}
-        </Tag>
+          <Tag color={colors[index % colors.length]} key={v}>
+            {v}
+          </Tag>
       );
     });
   }

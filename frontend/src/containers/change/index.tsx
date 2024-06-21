@@ -1,35 +1,53 @@
-import {DeleteOutlined, SaveFilled, SaveOutlined} from "@ant-design/icons";
-import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {Breadcrumb, Button, Col, Empty, Form, message, Popconfirm, Row, Space,} from "antd";
+import { DeleteOutlined, SaveFilled, SaveOutlined } from "@ant-design/icons";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+    Breadcrumb,
+    Button,
+    Col,
+    Empty,
+    Form,
+    Popconfirm,
+    Row,
+    Space,
+    message,
+} from "antd";
 import type React from "react";
-import {useContext} from "react";
-import {useTranslation} from "react-i18next";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import { useContext } from "react";
+import { useTranslation } from "react-i18next";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
-import {CrudContainer} from "@/components/crud-container";
-import {FormContainer} from "@/components/form-container";
-import {deleteFetcher, getFetcher, patchFetcher, postFetcher,} from "@/fetchers/fetchers";
-import {handleError} from "@/helpers/forms";
-import {getTitleFromModel} from "@/helpers/title";
-import {transformDataFromServer, transformDataToServer,} from "@/helpers/transform";
-import {useIsMobile} from "@/hooks/useIsMobile";
-import {EModelPermission, type IModel} from "@/interfaces/configuration";
-import {ConfigurationContext} from "@/providers/ConfigurationProvider";
+import { CrudContainer } from "@/components/crud-container";
+import { FormContainer } from "@/components/form-container";
+import {
+    deleteFetcher,
+    getFetcher,
+    patchFetcher,
+    postFetcher,
+} from "@/fetchers/fetchers";
+import { handleError } from "@/helpers/forms";
+import { getTitleFromModel } from "@/helpers/title";
+import {
+    transformDataFromServer,
+    transformDataToServer,
+} from "@/helpers/transform";
+import { useIsMobile } from "@/hooks/useIsMobile";
+import { EModelPermission, type IModel } from "@/interfaces/configuration";
+import { ConfigurationContext } from "@/providers/ConfigurationProvider";
 
 export const Change: React.FC = () => {
     const [form] = Form.useForm();
     const isMobile = useIsMobile();
     const queryClient = useQueryClient();
     const navigate = useNavigate();
-    const {configuration} = useContext(ConfigurationContext);
-    const {t: _t} = useTranslation("Change");
-    const {model, id} = useParams();
+    const { configuration } = useContext(ConfigurationContext);
+    const { t: _t } = useTranslation("Change");
+    const { model, id } = useParams();
 
     const modelConfiguration: IModel | undefined = configuration.models.find(
         (item: IModel) => item.name === model,
     );
 
-    const {data: initialChangeValues, isLoading: isLoadingInitialValues} =
+    const { data: initialChangeValues, isLoading: isLoadingInitialValues } =
         useQuery({
             queryKey: [`/retrieve/${model}/${id}`],
             queryFn: () => getFetcher(`/retrieve/${model}/${id}`),
@@ -79,7 +97,7 @@ export const Change: React.FC = () => {
         },
     });
 
-    const {mutate: mutateDelete} = useMutation({
+    const { mutate: mutateDelete } = useMutation({
         mutationFn: () => deleteFetcher(`/delete/${model}/${id}`),
         onSuccess: () => {
             message.success(_t("Successfully deleted"));
@@ -162,7 +180,7 @@ export const Change: React.FC = () => {
                                     onConfirm={onConfirmDelete}
                                 >
                                     <Button danger={true}>
-                                        <DeleteOutlined/> {_t("Delete")}
+                                        <DeleteOutlined /> {_t("Delete")}
                                     </Button>
                                 </Popconfirm>
                             </Space>
@@ -175,7 +193,7 @@ export const Change: React.FC = () => {
                                         onClick={onSaveAndContinueEditing}
                                         type="default"
                                     >
-                                        <SaveFilled/> {_t("Save and continue editing")}
+                                        <SaveFilled /> {_t("Save and continue editing")}
                                     </Button>
                                 )}
                                 {!isMobile && (
@@ -184,7 +202,7 @@ export const Change: React.FC = () => {
                                         onClick={onSaveAndAddAnother}
                                         type="default"
                                     >
-                                        <SaveFilled/>{" "}
+                                        <SaveFilled />{" "}
                                         {modelConfiguration?.save_as
                                             ? _t("Save as new")
                                             : _t("Save and add another")}
@@ -195,14 +213,14 @@ export const Change: React.FC = () => {
                                     onClick={onSave}
                                     type="primary"
                                 >
-                                    <SaveOutlined/> {_t("Save")}
+                                    <SaveOutlined /> {_t("Save")}
                                 </Button>
                             </Space>
                         </Col>
                     </Row>
                 </FormContainer>
             ) : (
-                <Empty description={_t("No permissions for model")}/>
+                <Empty description={_t("No permissions for model")} />
             )}
         </CrudContainer>
     );
