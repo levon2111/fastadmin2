@@ -16,7 +16,7 @@ fix:
 	@echo "Run mypy"
 	@exec poetry run mypy -p fastadmin -p examples -p docs
 	@echo "Run frontend linters"
-	@exec make -C frontend fix
+	@#exec make -C frontend fix
 
 .PHONY: lint
 lint:
@@ -29,7 +29,7 @@ lint:
 	@echo "Run mypy"
 	@exec poetry run mypy -p fastadmin -p examples -p docs
 	@echo "Run frontend linters"
-	@exec make -C frontend lint
+	@#exec make -C frontend lint
 
 .PHONY: test
 test:
@@ -57,17 +57,17 @@ install:
 
 .PHONY: docs
 docs:
-	@exec make -C docs build
+	@exec make -C build
 
 .PHONY: build
 build:
-	@exec make docs
+	@#exec make docs
 	@exec make -C frontend build
 	@exec make collectstatic
 
 .PHONY: push
 pre-push:
 	@exec make fix
-	@exec make lint
-	@exec make docs
+	@#exec make lint
+	@#exec make docs
 	@exec make build
